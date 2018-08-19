@@ -1,6 +1,6 @@
 package com.aaroncoplan;
 
-import com.aaroncoplan.module1.SimpleInterpreter1;
+import com.aaroncoplan.phase1.SimpleInterpreter1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,17 +31,17 @@ public class Application {
 
 
         if(args.length > 1) {
-            String moduleNumberString = args[1];
-            if(true) throw new RuntimeException("Module numbers not yet supported!");
+            String phaseNumberString = args[1];
+            if(true) throw new RuntimeException("Phase numbers not yet supported!");
 
-            if("1".equals(moduleNumberString)) {
+            if("1".equals(phaseNumberString)) {
 
-            } else if("2".equals(moduleNumberString)) {
+            } else if("2".equals(phaseNumberString)) {
 
-            } else if("3".equals(moduleNumberString)) {
+            } else if("3".equals(phaseNumberString)) {
 
             } else {
-                System.out.println("[ERROR] Invalid module number!  Please choose a value from 1-3");
+                System.out.println("[ERROR] Invalid phase number!  Please choose a value from 1-3");
                 System.exit(1);
             }
         } else {

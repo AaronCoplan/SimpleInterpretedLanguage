@@ -1,4 +1,4 @@
-package com.aaroncoplan.module1;
+package com.aaroncoplan.phase1;
 
 import com.aaroncoplan.SimpleInterpreter;
 
