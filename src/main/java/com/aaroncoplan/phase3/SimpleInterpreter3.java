@@ -104,7 +104,14 @@ public class SimpleInterpreter3 implements SimpleInterpreter {
                 throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("print".equals(functionName)) {
-            System.out.println(stack.pop());
+            Value3 value = stack.pop();
+            if(value.getType() == Value3.Type.INT) {
+                System.out.println(value.castInt());
+            } else if(value.getType() == Value3.Type.DOUBLE) {
+                System.out.println(value.castDouble());
+            } else {
+                System.out.println(value);
+            }
         } else {
             throw new RuntimeException("[ERROR] Unrecognized function " + functionName);
         }
