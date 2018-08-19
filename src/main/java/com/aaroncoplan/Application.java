@@ -2,6 +2,7 @@ package com.aaroncoplan;
 
 import com.aaroncoplan.phase1.SimpleInterpreter1;
 import com.aaroncoplan.phase2.SimpleInterpreter2;
+import com.aaroncoplan.phase3.SimpleInterpreter3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +41,9 @@ public class Application {
             } else if("2".equals(phaseNumberString)) {
                 System.out.println("[Running Using Phase 2 Interpreter]");
                 simpleInterpreter = new SimpleInterpreter2();
+            } else if("3".equals(phaseNumberString)) {
+                System.out.println("[Running Using Phase 3 Interpreter]");
+                simpleInterpreter = new SimpleInterpreter3();
             } else {
                 System.out.println("[ERROR] Invalid phase number!  Please choose a value from 1-3");
                 System.exit(1);
