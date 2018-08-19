@@ -14,7 +14,10 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
 
     @Override
     public void run(String code) {
+        // split the code into lines to execute one by one
         String[] lines = code.split("\n");
+
+        // for every line, run it, then clear the stack to "reset" before running the next line
         for(String line : lines) {
             runLine(line);
             stack.clear();
