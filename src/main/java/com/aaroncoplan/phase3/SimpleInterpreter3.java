@@ -6,10 +6,10 @@ import java.util.Stack;
 
 public class SimpleInterpreter3 implements SimpleInterpreter {
 
-    private final Stack<String> stack;
+    private final Stack<Value> stack;
 
     public SimpleInterpreter3() {
-        this.stack = new Stack<String>();
+        this.stack = new Stack<Value>();
     }
 
     @Override
@@ -36,7 +36,17 @@ public class SimpleInterpreter3 implements SimpleInterpreter {
             if(isFunction(piece)) {
                 executeFunction(piece);
             } else {
-                stack.push(piece);
+                try {
+                    Integer.parseInt(piece);
+                    stack.push(new Value(Value.Type.INT, piece));
+                } catch (NumberFormatException e) {
+                    try {
+                        Double.parseDouble(piece);
+                        stack.push(new Value(Value.Type.DOUBLE, piece));
+                    } catch (NumberFormatException e2) {
+                        throw new RuntimeException("[ERROR] Invalid argument, must be a number!");
+                    }
+                }
             }
         }
     }
@@ -60,46 +70,38 @@ public class SimpleInterpreter3 implements SimpleInterpreter {
     // return value (if there is one) will be pushed onto the stack
     public void executeFunction(String functionName) {
         if("add".equals(functionName)) {
-            String arg1String = stack.pop();
-            String arg2String = stack.pop();
-            try {
-                // attempt to treat both numbers as ints
-                int arg1 = Integer.parseInt(arg1String);
-                int arg2 = Integer.parseInt(arg2String);
-                int sum = arg1 + arg2;
-                stack.push(String.valueOf(sum));
-            } catch(NumberFormatException e) {
-                try {
-                    // attempt to treat both numbers as doubles
-                    double arg1 = Double.parseDouble(arg1String);
-                    double arg2 = Double.parseDouble(arg2String);
-                    double sum = arg1 + arg2;
-                    stack.push(String.valueOf(sum));
-                } catch (NumberFormatException e2) {
-                    // raise an exception as at least one of the arguments is not a number
-                    throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
-                }
+            Value arg1 = stack.pop();
+            Value arg2 = stack.pop();
+
+            if(arg1.getType() == Value.Type.INT && arg2.getType() == Value.Type.INT) {
+                int sum = arg1.castInt() + arg2.castInt();
+                stack.push(new Value(Value.Type.INT, String.valueOf(sum)));
+            } else if(arg1.getType() == Value.Type.DOUBLE && arg2.getType() == Value.Type.DOUBLE) {
+                double sum = arg1.castDouble() + arg2.castDouble();
+                stack.push(new Value(Value.Type.DOUBLE, String.valueOf(sum)));
+            } else if((arg1.getType() == Value.Type.INT && arg2.getType() == Value.Type.DOUBLE) || (arg1.getType() == Value.Type.DOUBLE && arg2.getType() == Value.Type.INT)) {
+                double sum = arg1.castDouble() + arg2.castDouble();
+                stack.push(new Value(Value.Type.DOUBLE, String.valueOf(sum)));
+            } else {
+                // raise an exception as at least one of the arguments is not a double or int
+                throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("multiply".equals(functionName)) {
-            String arg1String = stack.pop();
-            String arg2String = stack.pop();
-            try {
-                // attempt to treat both numbers as ints
-                int arg1 = Integer.parseInt(arg1String);
-                int arg2 = Integer.parseInt(arg2String);
-                int product = arg1 * arg2;
-                stack.push(String.valueOf(product));
-            } catch(NumberFormatException e) {
-                try {
-                    // attempt to treat both numbers as doubles
-                    double arg1 = Double.parseDouble(arg1String);
-                    double arg2 = Double.parseDouble(arg2String);
-                    double product = arg1 * arg2;
-                    stack.push(String.valueOf(product));
-                } catch (NumberFormatException e2) {
-                    // raise an exception as at least one of the arguments is not a number
-                    throw new RuntimeException("[ERROR] Invalid argument for 'multiply' function, must be a number!");
-                }
+            Value arg1 = stack.pop();
+            Value arg2 = stack.pop();
+
+            if(arg1.getType() == Value.Type.INT && arg2.getType() == Value.Type.INT) {
+                int product = arg1.castInt() * arg2.castInt();
+                stack.push(new Value(Value.Type.INT, String.valueOf(product)));
+            } else if(arg1.getType() == Value.Type.DOUBLE && arg2.getType() == Value.Type.DOUBLE) {
+                double product = arg1.castDouble() * arg2.castDouble();
+                stack.push(new Value(Value.Type.DOUBLE, String.valueOf(product)));
+            } else if((arg1.getType() == Value.Type.INT && arg2.getType() == Value.Type.DOUBLE) || (arg1.getType() == Value.Type.DOUBLE && arg2.getType() == Value.Type.INT)) {
+                double product = arg1.castDouble() * arg2.castDouble();
+                stack.push(new Value(Value.Type.DOUBLE, String.valueOf(product)));
+            } else {
+                // raise an exception as at least one of the arguments is not a double or int
+                throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("print".equals(functionName)) {
             System.out.println(stack.pop());
