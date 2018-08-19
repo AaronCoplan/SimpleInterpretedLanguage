@@ -45,7 +45,25 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
     }
 
     public void executeFunction(String functionName) {
-        System.out.format("Executing '%s'", functionName).println();
+        if("add".equals(functionName)) {
+            String arg1String = stack.pop();
+            String arg2String = stack.pop();
+            int arg1 = Integer.parseInt(arg1String);
+            int arg2 = Integer.parseInt(arg2String);
+            int sum = arg1 + arg2;
+            stack.push(String.valueOf(sum));
+        } else if("multiply".equals(functionName)) {
+            String arg1String = stack.pop();
+            String arg2String = stack.pop();
+            int arg1 = Integer.parseInt(arg1String);
+            int arg2 = Integer.parseInt(arg2String);
+            int product = arg1 * arg2;
+            stack.push(String.valueOf(product));
+        } else if("print".equals(functionName)) {
+            System.out.println(stack.pop());
+        } else {
+            throw new RuntimeException("Unrecognized function " + functionName);
+        }
     }
 
 }
