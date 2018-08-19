@@ -63,17 +63,20 @@ public class SimpleInterpreter2 implements SimpleInterpreter {
             String arg1String = stack.pop();
             String arg2String = stack.pop();
             try {
+                // attempt to treat both numbers as ints
                 int arg1 = Integer.parseInt(arg1String);
                 int arg2 = Integer.parseInt(arg2String);
                 int sum = arg1 + arg2;
                 stack.push(String.valueOf(sum));
             } catch(NumberFormatException e) {
                 try {
+                    // attempt to treat both numbers as doubles
                     double arg1 = Double.parseDouble(arg1String);
                     double arg2 = Double.parseDouble(arg2String);
                     double sum = arg1 + arg2;
                     stack.push(String.valueOf(sum));
                 } catch (NumberFormatException e2) {
+                    // raise an exception as at least one of the arguments is not a number
                     throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
                 }
             }
@@ -81,17 +84,20 @@ public class SimpleInterpreter2 implements SimpleInterpreter {
             String arg1String = stack.pop();
             String arg2String = stack.pop();
             try {
+                // attempt to treat both numbers as ints
                 int arg1 = Integer.parseInt(arg1String);
                 int arg2 = Integer.parseInt(arg2String);
                 int product = arg1 * arg2;
                 stack.push(String.valueOf(product));
             } catch(NumberFormatException e) {
                 try {
+                    // attempt to treat both numbers as doubles
                     double arg1 = Double.parseDouble(arg1String);
                     double arg2 = Double.parseDouble(arg2String);
                     double product = arg1 * arg2;
                     stack.push(String.valueOf(product));
                 } catch (NumberFormatException e2) {
+                    // raise an exception as at least one of the arguments is not a number
                     throw new RuntimeException("[ERROR] Invalid argument for 'multiply' function, must be a number!");
                 }
             }
