@@ -21,7 +21,7 @@ public class Application {
         try {
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()) {
-                code.append(scanner.nextLine());
+                code.append(scanner.nextLine() + "\n");
             }
             scanner.close();
         } catch(FileNotFoundException e) {
@@ -48,6 +48,6 @@ public class Application {
             simpleInterpreter = new SimpleInterpreter1();
         }
 
-        simpleInterpreter.run(code.toString());
+        simpleInterpreter.run(code.toString().trim());
     }
 }
