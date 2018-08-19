@@ -20,4 +20,11 @@ For example, `1 2 add` will treat both numbers as integers, and will push the re
 However, `1 2.5 add` will first try to treat both numbers as integers, fail to do so on `2.5`, and then reattempt by
 treating both values as doubles.  Thus, the result pushed to the stack will be `3.5`.  The same is executed for multiplication.
 This phase also adds error handling for invalid arguments.  When an argument is not a number, such as `hello 2 add`,
-the interpreter will recognize this and display an error message.  
+the interpreter will recognize this and display an error message.
+
+### Phase 3
+
+Extends Phase 2 by adding a very simple type system.  Now, instead of treating everything as a `String`, arguments are 
+typed into `Value` objects, which contain a `type` field.  This allows us to do easy comparison of types for the add and
+multiply functions in the updated phase 3 interpreter.  The major difference is that instead of determining types on popping
+from the stack, we now do so before pushing.  
