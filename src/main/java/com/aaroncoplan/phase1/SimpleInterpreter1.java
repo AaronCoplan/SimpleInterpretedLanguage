@@ -25,7 +25,13 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
     }
 
     private void runLine(String line) {
+        // split the line into pieces using a space as the delimiter
+        // ex. "1 2 add" -> ["1", "2", "add"]
         String[] pieces = line.split(" ");
+
+        // first check if each piece is a function
+        // if so, execute it
+        // otherwise, push the piece to the stack
         for(String piece : pieces) {
             if(isFunction(piece)) {
                 executeFunction(piece);
@@ -35,6 +41,8 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
         }
     }
 
+    // returns true if the piece is a function
+    // ex. "add" would return true, and "1" would return false
     public boolean isFunction(String piece) {
         if("add".equals(piece)) {
             return true;
@@ -47,6 +55,9 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
         }
     }
 
+    // carry out the actual execution of the function
+    // often involves mutating the stack
+    // return value (if there is one) will be pushed onto the stack
     public void executeFunction(String functionName) {
         if("add".equals(functionName)) {
             String arg1String = stack.pop();
