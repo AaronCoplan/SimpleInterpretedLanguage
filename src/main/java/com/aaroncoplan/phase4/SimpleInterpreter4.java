@@ -1,15 +1,16 @@
-package com.aaroncoplan.phase3;
+package com.aaroncoplan.phase4;
 
 import com.aaroncoplan.SimpleInterpreter;
+import com.aaroncoplan.phase4.Value4;
 
 import java.util.Stack;
 
-public class SimpleInterpreter3 implements SimpleInterpreter {
+public class SimpleInterpreter4 implements SimpleInterpreter {
 
-    private final Stack<Value3> stack;
+    private final Stack<Value4> stack;
 
-    public SimpleInterpreter3() {
-        this.stack = new Stack<Value3>();
+    public SimpleInterpreter4() {
+        this.stack = new Stack<Value4>();
     }
 
     @Override
@@ -38,11 +39,11 @@ public class SimpleInterpreter3 implements SimpleInterpreter {
             } else {
                 try {
                     Integer.parseInt(piece);
-                    stack.push(new Value3(Value3.Type.INT, piece));
+                    stack.push(new Value4(Value4.Type.INT, piece));
                 } catch (NumberFormatException e) {
                     try {
                         Double.parseDouble(piece);
-                        stack.push(new Value3(Value3.Type.DOUBLE, piece));
+                        stack.push(new Value4(Value4.Type.DOUBLE, piece));
                     } catch (NumberFormatException e2) {
                         throw new RuntimeException("[ERROR] Invalid argument, must be a number!");
                     }
@@ -70,35 +71,35 @@ public class SimpleInterpreter3 implements SimpleInterpreter {
     // return value (if there is one) will be pushed onto the stack
     public void executeFunction(String functionName) {
         if("add".equals(functionName)) {
-            Value3 arg1 = stack.pop();
-            Value3 arg2 = stack.pop();
+            Value4 arg1 = stack.pop();
+            Value4 arg2 = stack.pop();
 
-            if(arg1.getType() == Value3.Type.INT && arg2.getType() == Value3.Type.INT) {
+            if(arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.INT) {
                 int sum = arg1.castInt() + arg2.castInt();
-                stack.push(new Value3(Value3.Type.INT, String.valueOf(sum)));
-            } else if(arg1.getType() == Value3.Type.DOUBLE && arg2.getType() == Value3.Type.DOUBLE) {
+                stack.push(new Value4(Value4.Type.INT, String.valueOf(sum)));
+            } else if(arg1.getType() == Value4.Type.DOUBLE && arg2.getType() == Value4.Type.DOUBLE) {
                 double sum = arg1.castDouble() + arg2.castDouble();
-                stack.push(new Value3(Value3.Type.DOUBLE, String.valueOf(sum)));
-            } else if((arg1.getType() == Value3.Type.INT && arg2.getType() == Value3.Type.DOUBLE) || (arg1.getType() == Value3.Type.DOUBLE && arg2.getType() == Value3.Type.INT)) {
+                stack.push(new Value4(Value4.Type.DOUBLE, String.valueOf(sum)));
+            } else if((arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.DOUBLE) || (arg1.getType() == Value4.Type.DOUBLE && arg2.getType() == Value4.Type.INT)) {
                 double sum = arg1.castDouble() + arg2.castDouble();
-                stack.push(new Value3(Value3.Type.DOUBLE, String.valueOf(sum)));
+                stack.push(new Value4(Value4.Type.DOUBLE, String.valueOf(sum)));
             } else {
                 // raise an exception as at least one of the arguments is not a double or int
                 throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("multiply".equals(functionName)) {
-            Value3 arg1 = stack.pop();
-            Value3 arg2 = stack.pop();
+            Value4 arg1 = stack.pop();
+            Value4 arg2 = stack.pop();
 
-            if(arg1.getType() == Value3.Type.INT && arg2.getType() == Value3.Type.INT) {
+            if(arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.INT) {
                 int product = arg1.castInt() * arg2.castInt();
-                stack.push(new Value3(Value3.Type.INT, String.valueOf(product)));
-            } else if(arg1.getType() == Value3.Type.DOUBLE && arg2.getType() == Value3.Type.DOUBLE) {
+                stack.push(new Value4(Value4.Type.INT, String.valueOf(product)));
+            } else if(arg1.getType() == Value4.Type.DOUBLE && arg2.getType() == Value4.Type.DOUBLE) {
                 double product = arg1.castDouble() * arg2.castDouble();
-                stack.push(new Value3(Value3.Type.DOUBLE, String.valueOf(product)));
-            } else if((arg1.getType() == Value3.Type.INT && arg2.getType() == Value3.Type.DOUBLE) || (arg1.getType() == Value3.Type.DOUBLE && arg2.getType() == Value3.Type.INT)) {
+                stack.push(new Value4(Value4.Type.DOUBLE, String.valueOf(product)));
+            } else if((arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.DOUBLE) || (arg1.getType() == Value4.Type.DOUBLE && arg2.getType() == Value4.Type.INT)) {
                 double product = arg1.castDouble() * arg2.castDouble();
-                stack.push(new Value3(Value3.Type.DOUBLE, String.valueOf(product)));
+                stack.push(new Value4(Value4.Type.DOUBLE, String.valueOf(product)));
             } else {
                 // raise an exception as at least one of the arguments is not a double or int
                 throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");

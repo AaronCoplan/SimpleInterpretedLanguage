@@ -1,6 +1,6 @@
 package com.aaroncoplan.phase3;
 
-public class Value {
+public class Value3 {
 
     enum Type {
         INT,
@@ -10,7 +10,7 @@ public class Value {
     private final Type type;
     private final String value;
 
-    public Value(Type type, String value) {
+    public Value3(Type type, String value) {
         this.type = type;
         this.value = value;
     }
