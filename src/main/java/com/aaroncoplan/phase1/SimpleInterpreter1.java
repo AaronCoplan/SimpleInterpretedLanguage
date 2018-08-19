@@ -76,7 +76,7 @@ public class SimpleInterpreter1 implements SimpleInterpreter {
         } else if("print".equals(functionName)) {
             System.out.println(stack.pop());
         } else {
-            throw new RuntimeException("Unrecognized function " + functionName);
+            throw new RuntimeException("[ERROR] Unrecognized function " + functionName);
         }
     }
 

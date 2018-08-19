@@ -62,21 +62,43 @@ public class SimpleInterpreter2 implements SimpleInterpreter {
         if("add".equals(functionName)) {
             String arg1String = stack.pop();
             String arg2String = stack.pop();
-            int arg1 = Integer.parseInt(arg1String);
-            int arg2 = Integer.parseInt(arg2String);
-            int sum = arg1 + arg2;
-            stack.push(String.valueOf(sum));
+            try {
+                int arg1 = Integer.parseInt(arg1String);
+                int arg2 = Integer.parseInt(arg2String);
+                int sum = arg1 + arg2;
+                stack.push(String.valueOf(sum));
+            } catch(NumberFormatException e) {
+                try {
+                    double arg1 = Double.parseDouble(arg1String);
+                    double arg2 = Double.parseDouble(arg2String);
+                    double sum = arg1 + arg2;
+                    stack.push(String.valueOf(sum));
+                } catch (NumberFormatException e2) {
+                    throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
+                }
+            }
         } else if("multiply".equals(functionName)) {
             String arg1String = stack.pop();
             String arg2String = stack.pop();
-            int arg1 = Integer.parseInt(arg1String);
-            int arg2 = Integer.parseInt(arg2String);
-            int product = arg1 * arg2;
-            stack.push(String.valueOf(product));
+            try {
+                int arg1 = Integer.parseInt(arg1String);
+                int arg2 = Integer.parseInt(arg2String);
+                int product = arg1 * arg2;
+                stack.push(String.valueOf(product));
+            } catch(NumberFormatException e) {
+                try {
+                    double arg1 = Double.parseDouble(arg1String);
+                    double arg2 = Double.parseDouble(arg2String);
+                    double product = arg1 * arg2;
+                    stack.push(String.valueOf(product));
+                } catch (NumberFormatException e2) {
+                    throw new RuntimeException("[ERROR] Invalid argument for 'multiply' function, must be a number!");
+                }
+            }
         } else if("print".equals(functionName)) {
             System.out.println(stack.pop());
         } else {
-            throw new RuntimeException("Unrecognized function " + functionName);
+            throw new RuntimeException("[ERROR] Unrecognized function " + functionName);
         }
     }
 
