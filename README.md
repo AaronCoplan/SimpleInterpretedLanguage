@@ -2,7 +2,7 @@
 
 Compile: `javac src/main/java/com/aaroncoplan/**/*.java`
 
-Run: `java -cp ./src/main/java com.aaroncoplan.Application <filepath> <modulenumber (optional)>`
+Run: `java -cp ./src/main/java com.aaroncoplan.Application <filepath> <phasenumber (optional)>`
 
 ### Phase 1
 
