@@ -1,6 +1,7 @@
 package com.aaroncoplan;
 
 import com.aaroncoplan.phase1.SimpleInterpreter1;
+import com.aaroncoplan.phase2.SimpleInterpreter2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,20 +33,20 @@ public class Application {
 
         if(args.length > 1) {
             String phaseNumberString = args[1];
-            if(true) throw new RuntimeException("Phase numbers not yet supported!");
 
             if("1".equals(phaseNumberString)) {
-
+                System.out.println("[Running Using Phase 1 Interpreter]");
+                simpleInterpreter = new SimpleInterpreter1();
             } else if("2".equals(phaseNumberString)) {
-
-            } else if("3".equals(phaseNumberString)) {
-
+                System.out.println("[Running Using Phase 2 Interpreter]");
+                simpleInterpreter = new SimpleInterpreter2();
             } else {
                 System.out.println("[ERROR] Invalid phase number!  Please choose a value from 1-3");
                 System.exit(1);
             }
         } else {
-            simpleInterpreter = new SimpleInterpreter1();
+            System.out.println("[Running Using Phase 2 Interpreter]");
+            simpleInterpreter = new SimpleInterpreter2();
         }
 
         simpleInterpreter.run(code.toString().trim());
