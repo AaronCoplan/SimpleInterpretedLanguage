@@ -4,6 +4,8 @@ Compile: `javac src/main/java/com/aaroncoplan/**/*.java`
 
 Run: `java -cp ./src/main/java com.aaroncoplan.Application <filepath> <phasenumber (optional)>`
 
+Note that each phase has its own sample file that highlights the main features included in that phase (phase1sample, phase2sample, etc)
+
 ### Summary
 
 Simple stack based language.  Each phase adds incremental functionality so those visiting the repository can see how
