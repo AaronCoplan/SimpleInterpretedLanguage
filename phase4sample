@@ -5,3 +5,5 @@ $y print
 $x $y add $z set
 $z print
 $x $y multiply $z add print
+4 $i set
+$i $i add print
