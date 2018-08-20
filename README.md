@@ -4,6 +4,20 @@ Compile: `javac src/main/java/com/aaroncoplan/**/*.java`
 
 Run: `java -cp ./src/main/java com.aaroncoplan.Application <filepath> <phasenumber (optional)>`
 
+### Summary
+
+Simple stack based language.  Each phase adds incremental functionality so those visiting the repository can see how
+these features are implemented.  The programming language takes the following form / syntax:
+
+`arg arg ... function`
+
+Examples:
+
+```
+1 2 add print -> prints 3
+2 4 multiply 3 add print -> prints 11
+```
+
 ### Phase 1
 
 Basic interpreter with 3 built in functions - add, multiply, and print.  Limited error checking.  
@@ -27,4 +41,11 @@ the interpreter will recognize this and display an error message.
 Extends Phase 2 by adding a very simple type system.  Now, instead of treating everything as a `String`, arguments are 
 typed into `Value` objects, which contain a `type` field.  This allows us to do easy comparison of types for the add and
 multiply functions in the updated phase 3 interpreter.  The major difference is that instead of determining types on popping
-from the stack, we now do so before pushing.  
+from the stack, we now do so before pushing.
+
+### Phase 4
+
+Extends Phase 3 by making use of the type system to implement the ability to create variables.  Introduces the `set` function,
+which can be used to set the value of a variable.  For simplicity, variable names must begin with a dollar sign ($).
+To implement this functionality, a new type has been introduced, `REFERENCE`, which tells the interpreter to lookup
+the variable name in the table to obtain its value.
