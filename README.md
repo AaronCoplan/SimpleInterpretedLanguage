@@ -7,7 +7,7 @@ Run: `java -cp ./src/main/java com.aaroncoplan.Application <filepath> <phasenumb
 ### Summary
 
 Simple stack based language.  Each phase adds incremental functionality so those visiting the repository can see how
-these features are implemented.  The programming language takes the following form / syntax:
+common programming language features are implemented in a simplified manner.  The programming language takes the following form / syntax:
 
 `arg arg ... function`
 
