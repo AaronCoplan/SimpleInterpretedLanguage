@@ -3,14 +3,18 @@ package com.aaroncoplan.phase4;
 import com.aaroncoplan.SimpleInterpreter;
 import com.aaroncoplan.phase4.Value4;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class SimpleInterpreter4 implements SimpleInterpreter {
 
     private final Stack<Value4> stack;
+    private final Map<String, Value4> symbolTable;
 
     public SimpleInterpreter4() {
         this.stack = new Stack<Value4>();
+        this.symbolTable = new HashMap<String, Value4>();
     }
 
     @Override
@@ -36,6 +40,8 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
         for(String piece : pieces) {
             if(isFunction(piece)) {
                 executeFunction(piece);
+            } else if (isVariableName(piece)) {
+                stack.push(new Value4(Value4.Type.REFERENCE, piece));
             } else {
                 try {
                     Integer.parseInt(piece);
@@ -52,6 +58,10 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
         }
     }
 
+    public boolean isVariableName(String piece) {
+        return piece.startsWith("$");
+    }
+
     // returns true if the piece is a function
     // ex. "add" would return true, and "1" would return false
     public boolean isFunction(String piece) {
@@ -60,6 +70,8 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
         } else if("multiply".equals(piece)) {
             return true;
         } else if("print".equals(piece)) {
+            return true;
+        } else if("set".equals(piece)) {
             return true;
         } else {
             return false;
@@ -71,8 +83,8 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
     // return value (if there is one) will be pushed onto the stack
     public void executeFunction(String functionName) {
         if("add".equals(functionName)) {
-            Value4 arg1 = stack.pop();
-            Value4 arg2 = stack.pop();
+            Value4 arg1 = stack.pop().resolveReference(symbolTable);
+            Value4 arg2 = stack.pop().resolveReference(symbolTable);
 
             if(arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.INT) {
                 int sum = arg1.castInt() + arg2.castInt();
@@ -88,8 +100,8 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
                 throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("multiply".equals(functionName)) {
-            Value4 arg1 = stack.pop();
-            Value4 arg2 = stack.pop();
+            Value4 arg1 = stack.pop().resolveReference(symbolTable);
+            Value4 arg2 = stack.pop().resolveReference(symbolTable);
 
             if(arg1.getType() == Value4.Type.INT && arg2.getType() == Value4.Type.INT) {
                 int product = arg1.castInt() * arg2.castInt();
@@ -105,14 +117,18 @@ public class SimpleInterpreter4 implements SimpleInterpreter {
                 throw new RuntimeException("[ERROR] Invalid argument for 'add' function, must be a number!");
             }
         } else if("print".equals(functionName)) {
-            Value4 value = stack.pop();
-            if(value.getType() == Value4.Type.INT) {
+            Value4 value = stack.pop().resolveReference(symbolTable);
+            if (value.getType() == Value4.Type.INT) {
                 System.out.println(value.castInt());
-            } else if(value.getType() == Value4.Type.DOUBLE) {
+            } else if (value.getType() == Value4.Type.DOUBLE) {
                 System.out.println(value.castDouble());
             } else {
-                System.out.println(value);
+                System.out.println(value.getType() + " " + value);
             }
+        } else if("set".equals(functionName)) {
+            Value4 variableName = stack.pop();
+            Value4 value = stack.pop();
+            symbolTable.put(variableName.getValue(), value);
         } else {
             throw new RuntimeException("[ERROR] Unrecognized function " + functionName);
         }

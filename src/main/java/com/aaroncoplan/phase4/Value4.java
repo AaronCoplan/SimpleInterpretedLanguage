@@ -1,10 +1,13 @@
 package com.aaroncoplan.phase4;
 
+import java.util.Map;
+
 public class Value4 {
 
     enum Type {
         INT,
         DOUBLE,
+        REFERENCE,
     }
 
     private final Type type;
@@ -25,5 +28,18 @@ public class Value4 {
 
     public double castDouble() {
         return Double.parseDouble(this.value);
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public Value4 resolveReference(Map<String, Value4> symbolTable) {
+        if(this.getType() != Type.REFERENCE) {
+            return this;
+        } else {
+            Value4 referredValue = symbolTable.get(this.value);
+            return referredValue;
+        }
     }
 }

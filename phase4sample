@@ -1,0 +1,7 @@
+3 $x set
+4 $y set
+$x print
+$y print
+$x $y add $z set
+$z print
+$x $y multiply $z add print
