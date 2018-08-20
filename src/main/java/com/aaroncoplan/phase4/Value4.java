@@ -34,6 +34,7 @@ public class Value4 {
         return this.value;
     }
 
+    // if this is a reference, return the value it is referring to rather than the reference itself
     public Value4 resolveReference(Map<String, Value4> symbolTable) {
         if(this.getType() != Type.REFERENCE) {
             return this;
